@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Quizz de conduite manuelle</title>
+    <style>
+        body {
+            background-color: #2c0a9c;
+        }
+        .highlight {
+            color: rgb(221, 0, 255); /* Or any color you prefer */
+        }
+        .highlightB {
+            font-size:x-large;
+            color: rgb(0, 255, 229); /* Or any color you prefer */
+        }
+        .standardFont {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        table {
+            border: 2px solid #550071;
+            background-color: #141414;
+            color: rgb(255, 247, 0);
+            padding-left: 600px;
+            padding-right: 610px;
+            margin: 2px 20px 0 0px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        form {
+            border: 2px solid #550071;
+            background-color: #00000093;
+            color: rgb(255, 247, 0);
+            padding: 20px;
+            margin: 2px 0px 0 0px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>
+                <p style="display:inline" class="standardFont" id="annotation"></p>
+                <strong><p style="display:inline" class="highlightB" class="standardFont" id="score"></p></strong>
+            </th>
+            <th>
+                <img src="https://web.archive.org/web/20090829161004/http://geocities.com/igc_ufmg_galerie_d_art/index_arquivos/imagesanim/aniearthblue.gif" height="50" width="50">
+            </th>
+        </tr>
+        <tr>
+            <td>
+            <!-- formulaire pour avoir des inputs textes pour le quizz -->
+                <form id="quizForm">
+                    <!-- label accompagnant la textarea d'input -->
+                    <!-- br passe à la ligne -->
+                    <label class="standardFont" id="requestLabel" for="answer"></label><br>
+                    <input class="standardFont" type="text" id="answer" name= "answer">
+                </form>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <p class="standardFont" id="result"></p>
+            </td>
+        </tr>
+    </table>
+
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmR0MmM4MmYxb3E3cXZlbWFycnV0djZuMzh4cmFzNGw0bGp1eTc2ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uM0QzrHWSDr4KwbC3v/giphy.webp" height="500">
+    <img src="https://i.pinimg.com/originals/c9/9a/e0/c99ae047c42a841c96bd5a01c4f0277d.gif">
+    <img src="https://media.giphy.com/media/dsd7XbYg0e6hG0A7i8/giphy.gif" height="500">
+    <img src="https://64.media.tumblr.com/0cbe9c0189c3690e4cbb3bb0a6f39cea/5aaed63b9ec0a9c6-5e/s500x750/27a77a8c524e5fbe673cbddb230b028551741ca5.gifv">
+    <img src="https://i.redd.it/rz5ow0zb89lz.gif" height="500">
+    <img src="https://66.media.tumblr.com/f7e32604293095cdfdacf9e8f4cbb27e/tumblr_ptb83wxJDS1y9u9sko1_500.gif"  height="500">
+    <img src="https://64.media.tumblr.com/58d11cab61d9dace4398cdf5d1304986/7ef9dc21b44c3941-79/s400x600/122d5d4890ca4fb4d9341dd8f5420b8b8dcef508.gifv" height="500">
+    <img src="https://64.media.tumblr.com/06aeda5c50bf8bbb516a76e301d38d35/d0dd93755a0bac4f-ab/s500x750/8c86c067d3dad8b48354abbf2718524b4e050c49.gifv" height="500">
+    <img src="https://64.media.tumblr.com/704c29951fd816d45edce60aa04f60be/7f62353c1e4d52e1-d6/s500x750/7bacdae2fa56aa13b4afc9fa8d3bfee4f37413ac.gifv">
+    <br><br><br><br><br><br><br><br><br><br>
+    <iframe src="https://giphy.com/embed/U4Kh1dsGCaTG0A3Q8b" width="480" height="480" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/3d-cash-blender-U4Kh1dsGCaTG0A3Q8b">via GIPHY</a></p>
+
+
+    <script>
+        function createRemainingSteps() {
+            
+            for (let key in drivingAid) {
+                
+                // append remainingSteps array with each step name until they're all in it
+                remainingSteps.push(drivingAid[key][0]);
+                // verifier
+                console.log(drivingAid[key][0]);
+            }
+        }
+
+        // function that get a random property out of a dictionary.
+        //in place of obj, enter the drivingAid dictionary
+        function getRandomPropertyAmongTheRemainingOnes(obj) {
+            // get all the keys of the object
+            const keys = Object.keys(obj);
+            // select a random index. Multiply the desired max random num
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            // get the key at that index
+            const randomKey = keys[randomIndex];
+            // return a dictionary that nicely presents the answer;
+            //this dic offers 
+            //  the randomly chosen property "key"
+            //  the value of that key
+            return { key: randomKey, value: obj[randomKey] };
+        }
+
+        // return the index of a key in an object (here a dictionary, and here that dict is drivingAid) using the key
+        function getKeyIndex(obj, key) {
+            // get an array of the keys of the obj
+            const keys = Object.keys(obj);
+            // use the key to get its index within the array
+            return keys.indexOf(key);
+        }
+
+        // remove element at the index while keeping the integrity of the rest of the array, using "splice()"
+        function removeElementAtIndex(arr, index) {
+            // check that the index is within the array and thus spliceable
+            if (index >= 0 && index < arr.length) {
+                //1 is how many elements to splice away
+                arr.splice(index, 1);
+            }
+            return arr;
+        }
+
+        // à l'aide de la clé d'une étape, la valider
+        function removeTheValidatedStep(remainingSteps, keyOfStepToRemove) {
+
+            // convertir la clé en indice pour retrouver le nom correspondant à l'étape dans remainingSteps
+            let indexOfStepToRemove = getKeyIndex(drivingAid, keyOfStepToRemove);
+            // retirer le nom de l'étape validée
+            removeElementAtIndex(remainingSteps, indexOfStepToRemove)
+
+            return remainingSteps;
+        }
+
+
+        function startNewStep() {
+            // choisir une key-value pair non-éliminée au hasard
+            currentKeyValuePair = getRandomPropertyAmongTheRemainingOnes(drivingAid);
+            iCurrentSubStep = 0;
+            isEntireStepValidatable = true;
+            askNextSubStep();
+        }
+
+        function askNextSubStep() {
+
+            //if the substep is the second of the step
+            if (iCurrentSubStep > 0) {
+                // clear the annotation if there was one
+                document.getElementById("annotation").innerText = "";
+            }
+
+            // if the substep is not final
+            if (iCurrentSubStep < currentKeyValuePair.value[1].length) {
+
+                // display this step and the index+1 of the substep to guess
+                let displayedRequest = currentKeyValuePair.value[0] + " [" + (iCurrentSubStep) + "/" + currentKeyValuePair.value[1].length + "]";
+                document.getElementById("requestLabel").innerText = displayedRequest;
+                // the expected answer is the name of the current substep
+                //value[1] car 0 c'est le nom de l'étape, [1][iCurrentSubStep] c'est le nom de la sous étape
+                expectedAnswer = currentKeyValuePair.value[1][iCurrentSubStep];
+            } else {
+                finishStep();
+            }
+        }
+
+        function updateScoreDisplay() {
+            displayedScore = "[" + nbValidatedSteps + "/" + nbOfTotalSteps + "]";
+            document.getElementById("score").innerHTML = displayedScore;
+        }
+
+        function finishStep() {
+            // validate the entire step and update the score
+            if (isEntireStepValidatable) {
+                document.getElementById("annotation").innerText = "Tu as eu toutes les substeps du premier coup donc tu valides l'étape 🥹🫂";
+                removeTheValidatedStep(remainingSteps, currentKeyValuePair.key);
+                nbValidatedSteps++;
+                updateScoreDisplay();
+            } else {
+                document.getElementById("annotation").innerText = "Tu as eu une substep fausse donc tu ne valides pas l'étape 😞";
+            }
+            // reinit for the next step
+            if (nbValidatedSteps < nbOfTotalSteps) {
+                startNewStep();
+
+            } else {
+                document.getElementById("result").innerText = "Quiz terminé";
+            }
+        }
+
+        // vérifie si la réponse est vraie ou fausse
+        // et l'affiche immédiatement
+        // + update plusieurs choses
+
+        function checkAnswer(userInput) {
+
+            if (userInput === expectedAnswer) {
+                // display that the answer has been guessed correctly
+                document.getElementById("result").innerText = "Correct !";
+                // go forth to the next substep
+                iCurrentSubStep++;
+                askNextSubStep();
+
+            } else {
+                document.getElementById("result").innerHTML = `Incorrect. La réponse était <span class="highlight"> ${currentKeyValuePair.value[1][iCurrentSubStep]}</span> . Réessaye`;
+                // now the entire step can't be validated
+                isEntireStepValidatable = false;
+            }
+        }
+
+        document.getElementById("quizForm").addEventListener("keyup", function(event) {
+
+        //console.log(event.key);
+        //console.log(event.key === "Enter");
+        // empeche le resultat de s'afficher en temps réel
+        if (event.key === "Enter") {
+            // empeche l'utilisateur de rendre un form vide
+            //event.preventDefault();
+            
+            // .value récupère la valeur de l'elem id answer 
+            // sans .value on obtient juste [obj elem test area]
+            //.trim() retire trailing white spaces
+            let userInput = document.getElementById("answer").value.trim();
+
+            //Clear the input field otherwise it's annoying the user has to erase it himself
+            document.getElementById("answer").value = "";
+            checkAnswer(userInput);
+        }
+        });
+
+        // Prevent form submission on Enter
+        // Without this, the form is submitted and the page is refreshed.
+        document.getElementById("quizForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+        });
+
+        // Start the quiz
+                        
+        let drivingAid = {
+                demarre:["Démarre", [
+                    "Tourne la clé et débraye"
+                ]],
+                avanceVoiture:["Avance la voiture", [
+                    "Déssere à main et freine",
+                    "Lâche le frein",
+                    "Débraye et vitesse=1"
+                ]],
+                monteEnVitesse:["Monte en vitesse",[
+                    "Accel 1s et embraye prog",
+                    "Accel jsq 2000rpm"
+                ]],
+                retrograde:["Rétrograde", [
+                    "Décel et freine prog jsq 1500rpm",
+                    "Débraye et vitesse--"
+                ]],
+                freinerEtRalentisTrkl:["Freine et ralentis trkl", [
+                    "Décel prog",
+                    "Freine prog",
+                    "Débraye et rétrograde jsq vitesse=1",
+                    "Relâche le frein prog"
+                ]],
+                freineNOW:["Freine NOW", [
+                    "Décel NOW",
+                    "Freine prog vite",
+                ]],
+                statiMontee:["Reste stationnaire en montée", [
+                    "Descend au point mort",
+                    "Embraye et freine"
+                ]],
+                statiLong:["Reste stationnaire à un arrêt prolongé", [
+                    "Reste en vitesse 1 et  garde un pied sur le frein",
+                    "Serre à main"
+                ]],
+                statiCourt:["Reste stationnaire à un arrêt court", [
+                    "Reste en vitesse 1 et garde un pied sur le frein",
+                    "Lâche le frein"
+                ]],
+                stop:["Je m'arrête complètement", [
+                    "Débraye, freine, point mort",
+                    "Eteinds le moteur"
+                ]],
+                demarreEnMontee:["Démarre en montée", [
+                    "Débraye et vitesse 1",
+                    "Embraye partiellement jsq ce que voiture morde",
+                    "Désserre prog à main, acc prog et embraye prog"
+                ]]
+            }
+
+        let remainingSteps = [];
+        // contains the current step and its name, so delcared here because used in the various functions
+        let currentKeyValuePair;
+        // is declared here because is needed to compare to user input and is updated in the functions
+        let expectedAnswer;
+        // is declared here because use in the various functions
+        let iCurrentSubStep = 0;
+        // vraie tant que pas faux
+        let isEntireStepValidatable = true;
+
+        let nbOfTotalSteps;
+        let nbValidatedSteps = 0;
+        let displayedScore; 
+
+        // créer les étapes qui seront éliminées car validées une à une aléatoirement et en fonction des bonnes réponses de l'useur
+        createRemainingSteps();
+        // ici length est obtenable car remainingSteps est un simple array
+        nbOfTotalSteps = remainingSteps.length;
+        updateScoreDisplay();
+        startNewStep();
+
+        //I understand your concern about how to properly handle user input in this scenario. The issue is that your current approach using a while loop will create an infinite loop, as it doesn't allow for the user to submit new input. Instead, you need to restructure your code to work with the event-driven nature of JavaScript in the browser. Here's a suggested approach:
+        //1. Remove the while loop entirely.
+        //2. Use a callback function that gets called every time the form is submitted.
+        //3. In this callback function, check if the input is correct and update the UI accordingly.
+
+    </script>
+</body>
+</html>
